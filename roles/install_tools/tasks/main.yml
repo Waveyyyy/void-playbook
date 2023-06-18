@@ -35,3 +35,12 @@
     value: nvim
     scope: global
     state: present
+
+# move to different role - setup_environment
+- name: "Create tarballs directory for software installs"
+  ansible.builtin.shell: |
+    mkdir /opt/tarballs
+  args:
+    creates: /opt/tarballs
+  become: true
+  become_method: sudo
