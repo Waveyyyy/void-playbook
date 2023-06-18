@@ -60,3 +60,18 @@
     creates: /usr/local/go
   become: true
   become_method: sudo
+
+- name: "Check for line that adds go to path in /etc/profile"
+  ansible.builtin.lineinfile:
+    line: 'export PATH=$PATH:/usr/local/go/bin'
+    path: /etc/profile
+  check_mode: true
+  register: go_in_path
+
+- name: "Add go to path in /etc/profile"
+  ansible.builtin.lineinfile:
+    line: 'export PATH=$PATH:/usr/local/go/bin'
+    path: /etc/profile
+  when: go_in_path.changed
+  become: true
+  become_method: sudo
