@@ -1,2 +1,12 @@
 ---
 # tasks file for install_tools
+- name: "Install Neovim build prerequisites"
+  community.general.xbps:
+    name:
+      - base-devel
+      - cmake
+      - curl
+      - git
+    state: present
+  become: true
+  become_method: sudo
