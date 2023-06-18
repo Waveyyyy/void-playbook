@@ -75,3 +75,19 @@
   when: go_in_path.changed
   become: true
   become_method: sudo
+
+- name: "Clone gh-cli source"
+  ansible.builtin.git:
+    repo: 'https://github.com/cli/cli.git'
+    dest: /opt/gh-cli
+  become: true
+  become_method: sudo
+
+- name: "Build gh-cli from source"
+  # need to set path before since adding line to profile doesnt reload
+  ansible.builtin.shell: |
+    PATH=$PATH:/usr/local/go/bin make install
+  args:
+    chdir: /opt/gh-cli
+  become: true
+  become_method: sudo
