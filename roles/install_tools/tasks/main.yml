@@ -28,3 +28,10 @@
     creates: /usr/bin/nvim
   become: true
   become_method: sudo
+
+- name: "Set default git editor to Neovim"
+  community.general.git_config:
+    name: core.editor
+    value: nvim
+    scope: global
+    state: present
