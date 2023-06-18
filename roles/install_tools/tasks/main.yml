@@ -10,3 +10,21 @@
     state: present
   become: true
   become_method: sudo
+
+- name: "Clone Neovim source"
+  ansible.builtin.git:
+    repo: 'https://github.com/neovim/neovim'
+    dest: /opt/neovim
+    version: stable
+  become: true
+  become_method: sudo
+
+- name: "Build Neovim from source"
+  ansible.builtin.shell: |
+   cd /opt/neovim && \
+   make CMAKE_BUILD_TYPE=Release && \
+   make install
+  args:
+    creates: /usr/bin/nvim
+  become: true
+  become_method: sudo
