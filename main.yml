@@ -1,0 +1,6 @@
+---
+- name: "Custom Void Installation"
+  hosts: localhost
+  connection: local
+  roles:
+    - role: "roles/install_tools"
